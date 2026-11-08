@@ -1,0 +1,468 @@
+{
+  "info": {
+    "_postman_id": "c1f7a4e0-9e2b-4d89-8b65-lab03postman",
+    "name": "Lab 03 - Book Management API (REST, Query Params & Validation)",
+    "description": "Postman Collection for Lab 3 - REST API, Query Parameters, Validation and Debugging.\nStudent: PANNALA HARSHAVARDHAN REDDY (252U1R1182)\nSection: CSE-2D",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET Requests",
+      "item": [
+        {
+          "name": "1. Get All Books (Default Parameters)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Fetches all books with default pagination (limit=10, offset=0, order_by=id, order=ASC)."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Search Books by Partial Title",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?search_q=Design",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "search_q",
+                  "value": "Design",
+                  "description": "Performs partial search using SQL LIKE %Design%"
+                }
+              ]
+            },
+            "description": "Searches for books containing 'Design' in their title."
+          },
+          "response": []
+        },
+        {
+          "name": "3. Sort by Price Ascending",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?order_by=price&order=ASC",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "order_by",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "ASC"
+                }
+              ]
+            },
+            "description": "Sorts books by price from lowest to highest."
+          },
+          "response": []
+        },
+        {
+          "name": "4. Sort by Price Descending",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?order_by=price&order=DESC",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "order_by",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "DESC"
+                }
+              ]
+            },
+            "description": "Sorts books by price from highest to lowest."
+          },
+          "response": []
+        },
+        {
+          "name": "5. Pagination (Limit and Offset)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?limit=3&offset=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                },
+                {
+                  "key": "offset",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Skips the first 2 books and returns the next 3 books."
+          },
+          "response": []
+        },
+        {
+          "name": "6. Filter by Minimum Price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?min_price=700",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "min_price",
+                  "value": "700"
+                }
+              ]
+            },
+            "description": "Filters books with price >= 700."
+          },
+          "response": []
+        },
+        {
+          "name": "7. Filter by Maximum Price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?max_price=500",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "max_price",
+                  "value": "500"
+                }
+              ]
+            },
+            "description": "Filters books with price <= 500."
+          },
+          "response": []
+        },
+        {
+          "name": "8. Combined Search, Sorting, Pagination and Price Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?search_q=Design&order_by=price&order=ASC&limit=5&offset=0&min_price=600&max_price=900",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "search_q",
+                  "value": "Design"
+                },
+                {
+                  "key": "order_by",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "ASC"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "min_price",
+                  "value": "600"
+                },
+                {
+                  "key": "max_price",
+                  "value": "900"
+                }
+              ]
+            },
+            "description": "Demonstrates all query parameters functioning harmoniously together."
+          },
+          "response": []
+        },
+        {
+          "name": "9. Get One Existing Book by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1"]
+            },
+            "description": "Fetches a single book with ID 1 (Expected Status: 200)."
+          },
+          "response": []
+        },
+        {
+          "name": "10. Get Non-Existing Book by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999"]
+            },
+            "description": "Attempts to fetch non-existent book ID 999 (Expected Status: 404)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "POST Requests",
+      "item": [
+        {
+          "name": "1. Create a Valid Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Mastering Node.js & SQLite\",\n  \"author\": \"P. Harshavardhan Reddy\",\n  \"price\": 599,\n  \"pages\": 320\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Inserts a new book with all valid fields (Expected Status: 201)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PUT Requests",
+      "item": [
+        {
+          "name": "1. Update an Existing Book",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Clean Code: Second Edition\",\n  \"author\": \"Robert C. Martin\",\n  \"price\": 699,\n  \"pages\": 480\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1"]
+            },
+            "description": "Updates book ID 1 with new title, price, and pages (Expected Status: 200)."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Update a Non-Existing Book ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Non Existing Book\",\n  \"author\": \"Ghost Writer\",\n  \"price\": 299,\n  \"pages\": 100\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999"]
+            },
+            "description": "Attempts to update a non-existent book ID 999 (Expected Status: 404)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DELETE Requests",
+      "item": [
+        {
+          "name": "1. Delete an Existing Book",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/11",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "11"]
+            },
+            "description": "Deletes the book with ID 11 (Expected Status: 200)."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Delete a Non-Existing Book ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999"]
+            },
+            "description": "Attempts to delete non-existent book ID 999 (Expected Status: 404)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Validation and Error Testing",
+      "item": [
+        {
+          "name": "1. POST Submit Without Title",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"P. Harshavardhan Reddy\",\n  \"price\": 599\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Fails validation due to missing title (Expected Status: 400)."
+          },
+          "response": []
+        },
+        {
+          "name": "2. POST Submit Without Author",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Book Without Author\",\n  \"price\": 599\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Fails validation due to missing author (Expected Status: 400)."
+          },
+          "response": []
+        },
+        {
+          "name": "3. POST Submit With Non-Numeric Price",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Book With Non-Numeric Price\",\n  \"author\": \"Jane Doe\",\n  \"price\": \"five hundred\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Fails validation due to string price value (Expected Status: 400)."
+          },
+          "response": []
+        },
+        {
+          "name": "4. GET Invalid min_price Parameter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?min_price=abc",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "min_price",
+                  "value": "abc"
+                }
+              ]
+            },
+            "description": "Safe validation error for non-numeric min_price (Expected Status: 400)."
+          },
+          "response": []
+        },
+        {
+          "name": "5. GET Invalid max_price Parameter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?max_price=xyz",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "max_price",
+                  "value": "xyz"
+                }
+              ]
+            },
+            "description": "Safe validation error for non-numeric max_price (Expected Status: 400)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
+
